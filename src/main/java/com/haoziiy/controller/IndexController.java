@@ -1,5 +1,6 @@
 package com.haoziiy.controller;
 
+import com.haoziiy.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,6 +46,7 @@ public class IndexController {
         }
         model.addAttribute("colors", colors);
         model.addAttribute("map", map);
+        model.addAttribute("user", new User("Alice"));
         return "news";
     }
 }

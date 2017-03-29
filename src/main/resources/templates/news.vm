@@ -22,6 +22,34 @@ ${value3}
     Number $!{foreach.index}/$!{foreach.count}: $!{key} $map.get($key)
 #end
 
+#foreach($kv in $map.entrySet())
+    Number $!{foreach.index}/$!{foreach.count}: $!{kv.key} $!{kv.value}
+#end
+
+$!{user.name}
+$!{user.getName()}
+
+#set($title = "nowcoder")
+Include: #include("header.vm") <br>
+Parse: #parse("header.vm")
+
+#macro(render_color $color, $index)
+Color By Macro $index, $color
+#end
+
+#foreach ($color in $colors)
+#render_color($color, $foreach.index)
+#end
+
+#set($hello = "hello")
+#set($helloWorld1 = "{$hello} world")
+#set($helloWorld2 = '{$hello} world')
+
+helloWorld1: $helloWorld1
+helloWorld2: $helloWorld2
+
+$!{colors.size()}
+
 </pre>
 </body>
 </html>
