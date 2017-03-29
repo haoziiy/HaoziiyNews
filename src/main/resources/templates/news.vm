@@ -1,0 +1,27 @@
+<html>
+<body>
+<pre>
+Hello VM.
+
+## 行注释
+
+#*
+块注释
+*#
+
+value1:${value1}
+$!{value2}
+${value3}
+
+
+#foreach ($color in $colors)
+    Color $!{foreach.index}/$!{foreach.count}: $!{color}
+#end
+
+#foreach($key in $map.keySet())
+    Number $!{foreach.index}/$!{foreach.count}: $!{key} $map.get($key)
+#end
+
+</pre>
+</body>
+</html>
