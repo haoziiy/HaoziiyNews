@@ -1,7 +1,10 @@
 package com.haoziiy.controller;
 
+import com.haoziiy.aspect.LogAspect;
 import com.haoziiy.model.User;
 import com.haoziiy.service.NewsService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -22,6 +25,8 @@ import java.util.*;
 @Controller
 public class IndexController {
 
+    private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
+
     @Autowired
     private NewsService newsService;
 
@@ -29,6 +34,7 @@ public class IndexController {
     @ResponseBody
     public String index(HttpSession session){
         newsService.say();
+        logger.info("Visit Index");
         return "Hello World, " + session.getAttribute("msg")
                 + "<br>Say : " + newsService.say();
     }
