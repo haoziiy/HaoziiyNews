@@ -1,9 +1,13 @@
 package com.haoziiy.controller;
 
 import com.haoziiy.model.User;
+import com.haoziiy.service.NewsService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,10 +22,15 @@ import java.util.*;
 @Controller
 public class IndexController {
 
-    @RequestMapping(path = {"/", "/index"})
+    @Autowired
+    private NewsService newsService;
+
+    @RequestMapping(path = {"/", "/index"}, method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public String index(){
-        return "Hello World!";
+    public String index(HttpSession session){
+        newsService.say();
+        return "Hello World, " + session.getAttribute("msg")
+                + "<br>Say : " + newsService.say();
     }
 
     @RequestMapping(value = {"/profile/{groupId}/{userId}"})
@@ -81,5 +90,31 @@ public class IndexController {
         response.addHeader(key, value);
         return "HaoziiyId from Cookie : " + haoziiyId;
 
+    }
+
+    @RequestMapping(value = {"/redirect/{code}"})
+    public String redirect(@PathVariable("code") int code,
+                           HttpSession session){
+//        RedirectView red = new RedirectView("/", true);
+//        if (code == 301){
+//            red.setStatusCode(HttpStatus.PERMANENT_REDIRECT);
+//        }
+//        return red;
+        session.setAttribute("msg", "Jump from redirect.");
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = {"/admin"})
+    @ResponseBody
+    public String admin(@RequestParam(value = "key", required = false) String key){
+        if("admin".equals(key))
+            return "Hello admin!";
+        throw new IllegalArgumentException("key错误");
+    }
+
+    @ExceptionHandler
+    @ResponseBody
+    public String error(Exception e){
+        return "error : " + e.getMessage();
     }
 }
