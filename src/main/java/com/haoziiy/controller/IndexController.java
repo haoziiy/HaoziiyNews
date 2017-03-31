@@ -1,22 +1,18 @@
 package com.haoziiy.controller;
 
-import com.haoziiy.aspect.LogAspect;
 import com.haoziiy.model.User;
-import com.haoziiy.service.NewsService;
+import com.haoziiy.service.HaoziiyNewsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Cookie;
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -28,15 +24,15 @@ public class IndexController {
     private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
 
     @Autowired
-    private NewsService newsService;
+    private HaoziiyNewsService haoziiyNewsService;
 
     @RequestMapping(path = {"/", "/index"}, method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
     public String index(HttpSession session){
-        newsService.say();
+        haoziiyNewsService.say();
         logger.info("Visit Index");
         return "Hello World, " + session.getAttribute("msg")
-                + "<br>Say : " + newsService.say();
+                + "<br>Say : " + haoziiyNewsService.say();
     }
 
     @RequestMapping(value = {"/profile/{groupId}/{userId}"})
