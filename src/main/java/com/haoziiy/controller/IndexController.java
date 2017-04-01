@@ -18,7 +18,6 @@ import java.util.*;
 /**
  * Created by sherry on 2017/3/29.
  */
-@Controller
 public class IndexController {
 
     private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
@@ -26,14 +25,14 @@ public class IndexController {
     @Autowired
     private HaoziiyNewsService haoziiyNewsService;
 
-    @RequestMapping(path = {"/", "/index"}, method = {RequestMethod.GET, RequestMethod.POST})
-    @ResponseBody
-    public String index(HttpSession session){
-        haoziiyNewsService.say();
-        logger.info("Visit Index");
-        return "Hello World, " + session.getAttribute("msg")
-                + "<br>Say : " + haoziiyNewsService.say();
-    }
+//    @RequestMapping(path = {"/", "/index"}, method = {RequestMethod.GET, RequestMethod.POST})
+//    @ResponseBody
+//    public String index(HttpSession session){
+//        haoziiyNewsService.say();
+//        logger.info("Visit Index");
+//        return "Hello World, " + session.getAttribute("msg")
+//                + "<br>Say : " + haoziiyNewsService.say();
+//    }
 
     @RequestMapping(value = {"/profile/{groupId}/{userId}"})
     @ResponseBody
