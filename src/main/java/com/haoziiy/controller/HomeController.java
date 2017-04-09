@@ -1,6 +1,8 @@
 package com.haoziiy.controller;
 
+import com.haoziiy.model.News;
 import com.haoziiy.model.User;
+import com.haoziiy.model.ViewObject;
 import com.haoziiy.service.NewsService;
 import com.haoziiy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by sherry on 2017/4/1.
@@ -28,8 +27,20 @@ public class HomeController {
     UserService userService;
 
     @RequestMapping(path = {"/", "/index"}, method = {RequestMethod.GET, RequestMethod.POST})
-    @ResponseBody
-    public String index(HttpSession session){
+    public String index(Model model){
+
+        List<News> newsList = newsService.getLatestNews(0,0,10);
+
+        List<ViewObject> vos = new ArrayList<>();
+        for ( News news : newsList){
+            ViewObject vo = new ViewObject();
+            vo.set("news", news);
+            vo.set("user", userService.getUser(news.getUserId()));
+            vos.add(vo);
+        }
+
+        model.addAttribute("vos", vos);
+
         return "home";
     }
 

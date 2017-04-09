@@ -3,6 +3,7 @@ package com.haoziiy.dao;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import com.haoziiy.model.News;
+import com.haoziiy.model.User;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
