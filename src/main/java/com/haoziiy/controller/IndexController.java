@@ -18,7 +18,7 @@ import java.util.*;
 /**
  * Created by sherry on 2017/3/29.
  */
-@Controller
+
 public class IndexController {
 
     private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
@@ -45,6 +45,7 @@ public class IndexController {
     }
 
     @RequestMapping(value = {"/vm"})
+    @ResponseBody
     public String news(Model model){
         model.addAttribute("value1", "vv1");
         List<String> colors = Arrays.asList(new String[]{"RED", "GREEN", "BLUE"});
